@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 import mixpanel from 'mixpanel-browser';
 
 import { v4 as uuidv4 } from 'uuid';
