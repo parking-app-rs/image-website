@@ -1,0 +1,13 @@
+.selected {
+  background-color: #0454af;
+}
+
+button {
+  background-color: #0276fd;
+  color: white;
+  font-size: 20px;
+  padding: 10px 30px;
+  border-radius: 5px;
+  margin: 10px 10px;
+  cursor: pointer;
+}
