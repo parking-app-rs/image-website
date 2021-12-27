@@ -18,3 +18,12 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root'),
 );
+
+function pointermove_handler(ev) {
+  mixpanel.track('User zoomed', {
+    id,
+  });
+}
+
+const appDiv = document.querySelector('.App');
+appDiv.onpointermove = pointermove_handler;
