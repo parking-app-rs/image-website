@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import mixpanel from 'mixpanel-browser';
-import uuidv4 from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 
 const id = uuidv4();
 
