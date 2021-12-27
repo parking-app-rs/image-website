@@ -32,6 +32,15 @@ document.addEventListener('visibilitychange', function logData() {
   }
 });
 
+function pointermove_handler(ev) {
+  mixpanel.track('User zoomed', {
+    id,
+  });
+}
+
+const appDiv = document.querySelector('.App');
+appDiv.onpointermove = pointermove_handler;
+
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
