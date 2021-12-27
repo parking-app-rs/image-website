@@ -19,6 +19,9 @@ ReactDOM.render(
   document.getElementById('root'),
 );
 
+const THROTTLE_TIME_IN_SEC = 1;
+const THROTTLE_TIME_IN_MS = THROTTLE_TIME_IN_SEC * 1000;
+
 const trackZoomEventToMixpanel = () => {
   mixpanel.track('User zoomed', {
     id,
@@ -27,7 +30,7 @@ const trackZoomEventToMixpanel = () => {
 
 const throttledtrackZoomEventToMixpanel = throttle(
   trackZoomEventToMixpanel,
-  500,
+  THROTTLE_TIME_IN_MS,
 );
 
 // set zoom event
