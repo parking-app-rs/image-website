@@ -18,11 +18,44 @@ ReactDOM.render(
   document.getElementById('root'),
 );
 
-function pointermove_handler(ev) {
+// set zoom event
+window.onzoom = function (e) {
+  // zoom event
   mixpanel.track('User zoomed', {
     id,
   });
-}
+};
 
-const appDiv = document.querySelector('.App');
-appDiv.onpointermove = pointermove_handler;
+// detect resize
+// (
+//   function() {
+//     var oldresize = window.onresize;
+//     window.onresize = function(e) {
+//       var event = window.event || e;
+//       if(typeof(oldresize) === 'function' && !oldresize.call(window, event)) {
+//         return false;
+//       }
+//       if(typeof(window.onzoom) === 'function') {
+//         return window.onzoom.call(window, event);
+//       }
+//     }
+// )();
+var oldresize = window.onresize;
+window.onresize = function (e) {
+  var event = window.event || e;
+  if (typeof oldresize === 'function' && !oldresize.call(window, event)) {
+    return false;
+  }
+  if (typeof window.onzoom === 'function') {
+    return window.onzoom.call(window, event);
+  }
+};
+
+// function pointermove_handler(ev) {
+//   mixpanel.track('User zoomed', {
+//     id,
+//   });
+// }
+
+// const appDiv = document.querySelector('.App');
+// appDiv.onpointermove = pointermove_handler;
