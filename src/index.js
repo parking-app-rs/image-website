@@ -22,37 +22,35 @@ ReactDOM.render(
 const THROTTLE_TIME_IN_SEC = 1;
 const THROTTLE_TIME_IN_MS = THROTTLE_TIME_IN_SEC * 1000;
 
-const trackZoomEventToMixpanel = () => {
-  mixpanel.track('User zoomed', {
-    id,
-  });
+const generateThrottledFunctionToTrack = (msg) => {
+  const trackZoomEventToMixpanel = () => {
+    mixpanel.track(msg, {
+      id,
+    });
+  };
+
+  const throttledTrackZoomEventToMixpanel = throttle(
+    trackZoomEventToMixpanel,
+    THROTTLE_TIME_IN_MS,
+  );
+
+  return throttledTrackZoomEventToMixpanel;
 };
 
-const throttledtrackZoomEventToMixpanel = throttle(
-  trackZoomEventToMixpanel,
-  THROTTLE_TIME_IN_MS,
-);
+let msg = 'User zoomed';
+const trackZoom = generateThrottledFunctionToTrack(msg);
+
+msg = 'User scrolled';
+const trackScroll = generateThrottledFunctionToTrack(msg);
 
 // set zoom event
 window.onzoom = function (e) {
   // zoom event
-  throttledtrackZoomEventToMixpanel();
+
+  trackZoom();
 };
 
 // detect resize
-// (
-//   function() {
-//     var oldresize = window.onresize;
-//     window.onresize = function(e) {
-//       var event = window.event || e;
-//       if(typeof(oldresize) === 'function' && !oldresize.call(window, event)) {
-//         return false;
-//       }
-//       if(typeof(window.onzoom) === 'function') {
-//         return window.onzoom.call(window, event);
-//       }
-//     }
-// )();
 var oldresize = window.onresize;
 window.onresize = function (e) {
   var event = window.event || e;
@@ -64,11 +62,10 @@ window.onresize = function (e) {
   }
 };
 
-// function pointermove_handler(ev) {
-//   mixpanel.track('User zoomed', {
-//     id,
-//   });
-// }
+window.addEventListener('touchmove', () => {
+  trackScroll();
+});
 
-// const appDiv = document.querySelector('.App');
-// appDiv.onpointermove = pointermove_handler;
+window.addEventListener('scroll', () => {
+  trackScroll();
+});
