@@ -1,7 +1,18 @@
+import { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import mixpanel from 'mixpanel-browser';
+import uuidv4 from 'uuid/v4';
+
+const id = uuidv4();
 
 function App() {
+  useEffect(() => {
+    mixpanel.track('User visited the site', {
+      id,
+    });
+  });
+
   return (
     <div className="App">
       <header className="App-header">
