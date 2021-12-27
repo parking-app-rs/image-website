@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import mixpanel from 'mixpanel-browser';
+import throttle from 'lodash';
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -18,12 +19,21 @@ ReactDOM.render(
   document.getElementById('root'),
 );
 
-// set zoom event
-window.onzoom = function (e) {
-  // zoom event
+const trackZoomEventToMixpanel = () => {
   mixpanel.track('User zoomed', {
     id,
   });
+};
+
+const throttledtrackZoomEventToMixpanel = throttle(
+  trackZoomEventToMixpanel,
+  500,
+);
+
+// set zoom event
+window.onzoom = function (e) {
+  // zoom event
+  throttledtrackZoomEventToMixpanel();
 };
 
 // detect resize
