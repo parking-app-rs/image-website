@@ -8,7 +8,7 @@ function App({ id }) {
     mixpanel.track('User visited the site', {
       id,
     });
-  }, []);
+  }, [id]);
 
   return (
     <div className="App">
