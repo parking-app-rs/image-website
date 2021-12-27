@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import logo from './testmap.png';
 import './App.css';
-import styled from 'styled-components';
 import mixpanel from 'mixpanel-browser';
 
 function App({ id }) {
