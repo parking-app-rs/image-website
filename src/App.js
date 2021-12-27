@@ -45,6 +45,7 @@ function App({ id }) {
         <div>
           <Button
             onClick={() => {
+              console.log('yes');
               mixpanel.track('User clicked YES', {
                 id,
               });
@@ -54,6 +55,7 @@ function App({ id }) {
           </Button>
           <Button
             onClick={() => {
+              console.log('no');
               mixpanel.track('User clicked NO', {
                 id,
               });
