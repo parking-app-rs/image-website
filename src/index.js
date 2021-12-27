@@ -19,19 +19,6 @@ ReactDOM.render(
   document.getElementById('root'),
 );
 
-// window.addEventListener('beforeunload', function (e) {
-//   mixpanel.track('User left the site', {
-//     id,
-//   });
-// });
-document.addEventListener('visibilitychange', function logData() {
-  if (document.visibilityState === 'hidden') {
-    mixpanel.track('User left the site', {
-      id,
-    });
-  }
-});
-
 function pointermove_handler(ev) {
   mixpanel.track('User zoomed', {
     id,
@@ -40,8 +27,3 @@ function pointermove_handler(ev) {
 
 const appDiv = document.querySelector('.App');
 appDiv.onpointermove = pointermove_handler;
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
