@@ -1,18 +1,8 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import logo from './testmap.png';
 import './App.css';
 import styled from 'styled-components';
 import mixpanel from 'mixpanel-browser';
-
-const Button = styled.button`
-  background-color: #0276fd;
-  color: white;
-  font-size: 20px;
-  padding: 10px 30px;
-  border-radius: 5px;
-  margin: 10px 10px;
-  cursor: pointer;
-`;
 
 function App({ id }) {
   useEffect(() => {
@@ -20,6 +10,8 @@ function App({ id }) {
       id,
     });
   }, [id]);
+
+  const [selected, setSelected] = useState('');
 
   return (
     <div>
@@ -43,26 +35,30 @@ function App({ id }) {
       >
         <h1>Was this helpful?</h1>
         <div>
-          <Button
+          <button
             onClick={() => {
               console.log('yes');
               mixpanel.track('User clicked YES', {
                 id,
               });
+              setSelected('yes');
             }}
+            className={selected === 'yes' ? 'selected' : ''}
           >
             Yes
-          </Button>
-          <Button
+          </button>
+          <button
             onClick={() => {
               console.log('no');
               mixpanel.track('User clicked NO', {
                 id,
               });
+              setSelected('no');
             }}
+            className={selected === 'no' ? 'selected' : ''}
           >
             No
-          </Button>
+          </button>
         </div>
       </div>
     </div>
